@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+require "casper"
+
+server = Casper::Proxy.new
+trap("INT") { server.shutdown }
+server.start
