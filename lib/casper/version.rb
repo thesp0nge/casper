@@ -1,7 +1,7 @@
 module Casper
   module Version
     MAJOR = 0 
-    MINOR = 10
+    MINOR = 50
     PATCH = 0
     BUILD = ''
 
