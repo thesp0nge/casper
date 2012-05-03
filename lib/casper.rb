@@ -10,6 +10,10 @@ module Casper
     def initialize(config={})
       @req_count = 0
       @hosts=[]
+      @urls=[]
+      @trace_domain = ""
+      @trace_domain = config[:trace] if config[:trace]
+
       config[:Port] ||= 8080
       config[:AccessLog] = []
       config[:ProxyContentHandler] = Proc.new do |req, res| 
@@ -35,13 +39,25 @@ module Casper
       end
     end
 
+    def get_urls
+      @urls.each do |u|
+        $stdout.puts "#{u}\n"
+      end
+    end
+
     private 
     def log_requests(req, res)
-      $stdout.puts "[#{Time.now}] #{req.request_line.chomp}\n"
-      if @hosts.index(req.host).nil?
-        @hosts << req.host
+      if (@trace_domain == "") or ( ! req.request_line.index(@trace_domain).nil?)
+        $stdout.puts "[#{Time.now}] #{req.request_line.chomp}\n"
+        $stdout.puts "---> #{req.body} #{req.request_method}" if req.request_method == "POST"
+        if @urls.index(req.request_line.chomp).nil?
+          @urls << req.request_line.chomp
+        end
+        if @hosts.index(req.host).nil?
+          @hosts << req.host
+        end
+        inc_req_count
       end
-      inc_req_count
     end
 
     def inc_req_count
