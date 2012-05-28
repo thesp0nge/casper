@@ -22,7 +22,7 @@ module Casper
 
       super(config)
     end
-
+    
     def info
       $stdout.puts "[#{Time.now}] INFO #{@req_count} requests to #{@hosts.count} unique hosts"
     end
@@ -48,7 +48,7 @@ module Casper
     private 
     def log_requests(req, res)
       if (@trace_domain == "") or ( ! req.request_line.index(@trace_domain).nil?)
-        $stdout.puts "[#{Time.now}] #{req.request_line.chomp}\n"
+        $stdout.puts "[#{Time.now}] #{req.request_line.chomp} => #{res.status}\n"
         $stdout.puts "---> #{req.body} #{req.request_method}" if req.request_method == "POST"
         if @urls.index(req.request_line.chomp).nil?
           @urls << req.request_line.chomp
