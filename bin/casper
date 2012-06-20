@@ -2,7 +2,7 @@
 require "casper"
 #require "rainbow"
 
-server = Casper::Proxy.new({:trace=>ARGV[0]})
+server = Casper::Proxy.new({:trace=>ARGV[0], :Port=>ARGV[1]})
 trap("INT") { server.shutdown }
 trap("INFO") { server.info }
 trap("USR1") { server.dump }

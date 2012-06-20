@@ -12,9 +12,9 @@ module Casper
       @hosts=[]
       @urls=[]
       @trace_domain = ""
-      @trace_domain = config[:trace] if config[:trace]
+      @trace_domain = config[:trace] if config[:trace] and ! config[:trace].empty?
 
-      config[:Port] ||= 8080
+      config[:Port] = 8080 if ! config[:Port]
       config[:AccessLog] = []
       config[:ProxyContentHandler] = Proc.new do |req, res| 
         log_requests(req, res) 
