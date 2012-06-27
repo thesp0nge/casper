@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Paolo Perego"]
   s.email       = ["thesp0nge@gmail.com"]
   s.homepage    = ""
-  s.summary     = %q{A transparent HTTP proxy}
-  s.description = %q{A transparent HTTP proxy}
+  s.summary     = %q{A transparent HTTP proxy useful in the preliminary recognize step for a web application security assessment}
+  s.description = %q{A transparent HTTP proxy useful in the preliminary recognize step for a web application security assessment}
 
   s.rubyforge_project = "casper"
 
@@ -21,8 +21,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec"
 
-  s.add_dependency  "rainbow"
-  # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
 end
