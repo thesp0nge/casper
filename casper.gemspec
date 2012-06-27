@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "casper/version"
 
 Gem::Specification.new do |s|
-  s.name        = "casper"
+  s.name        = "casper-proxy"
   s.version     = Casper::Version.version
   s.authors     = ["Paolo Perego"]
   s.email       = ["thesp0nge@gmail.com"]
