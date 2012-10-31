@@ -1,6 +1,7 @@
 require "webrick"
 require "webrick/httpproxy"
 require "casper/version"
+require "casper/disable_ie_xss_protection"
 
 module Casper
   class Proxy < WEBrick::HTTPProxyServer
@@ -17,6 +18,7 @@ module Casper
       config[:Port] = 8080 if ! config[:Port]
       config[:AccessLog] = []
       config[:ProxyContentHandler] = Proc.new do |req, res| 
+        res.disable_ie_xss_protection if config[:disable_ie_xss_protection]
         log_requests(req, res) 
       end
 
