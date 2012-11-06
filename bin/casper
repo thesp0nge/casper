@@ -6,7 +6,8 @@ opts = GetoptLong.new(
   [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
   [ '--version', '-v', GetoptLong::NO_ARGUMENT ],
   [ '--trace', '-T', GetoptLong::REQUIRED_ARGUMENT],
-  [ '--port', '-p', GetoptLong::REQUIRED_ARGUMENT ]
+  [ '--port', '-p', GetoptLong::REQUIRED_ARGUMENT ],
+  [ '--disable-ie-xss', '-x', GetoptLong::NO_ARGUMENT ]
 )
 
 options = {:trace=>nil, :Port=>nil}
@@ -27,6 +28,8 @@ opts.each do |opt, arg|
     options[:trace] = arg
   when '--port'
     options[:Port] = arg
+  when '--disable_ie_xss_protection'
+    options[:disable_ie_xss_protection] = true
   end
 end
 
