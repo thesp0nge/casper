@@ -1,6 +1,7 @@
 require "webrick"
 require "webrick/httpproxy"
 require "casper/version"
+require "casper/request"
 require "casper/disable_ie_xss_protection"
 
 module Casper
@@ -19,6 +20,7 @@ module Casper
       config[:AccessLog] = []
       config[:ProxyContentHandler] = Proc.new do |req, res| 
         res.disable_ie_xss_protection if config[:disable_ie_xss_protection]
+        req.discover_entrypoints
         log_requests(req, res) 
       end
 
