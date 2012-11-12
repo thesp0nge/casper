@@ -6,9 +6,7 @@ module Casper
 
       def discover_entrypoints
 
-        #uri=URI.parse(self.request_line)
-
-        hash = {:time=>Time.now, :method=>self.request_method, :host=>self.host, :port=>self.port, :query=>self.path}
+        hash = {:time=>Time.now, :method=>self.request_method, :host=>self.host, :port=>self.port, :path=>self.path, :query=>self.query}
         puts hash.to_json
       end
 

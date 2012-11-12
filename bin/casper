@@ -7,10 +7,12 @@ opts = GetoptLong.new(
   [ '--version', '-v', GetoptLong::NO_ARGUMENT ],
   [ '--trace', '-T', GetoptLong::REQUIRED_ARGUMENT],
   [ '--port', '-p', GetoptLong::REQUIRED_ARGUMENT ],
-  [ '--disable-ie-xss', '-x', GetoptLong::NO_ARGUMENT ]
+  [ '--attack', '-a', GetoptLong::NO_ARGUMENT ]
 )
 
 options = {:trace=>nil, :Port=>nil}
+mode = :transparent
+
 opts.each do |opt, arg|
   case opt
   when '--help'
@@ -28,15 +30,22 @@ opts.each do |opt, arg|
     options[:trace] = arg
   when '--port'
     options[:Port] = arg
-  when '--disable_ie_xss_protection'
-    options[:disable_ie_xss_protection] = true
+  when '--attack'
+    mode = :attack
   end
 end
 
 
-server = Casper::Proxy.new(options)
-trap("INT")  { server.shutdown }
-trap("INFO") { server.info }
-trap("USR1") { server.dump }
-trap("USR2") { server.get_urls }
+if mode == :transparent
+  server = Casper::TransparentProxy.new(options)
+  trap("INT")  { server.shutdown }
+  trap("INFO") { server.info }
+  trap("USR1") { server.dump }
+  trap("USR2") { server.get_urls }
+else
+  server = Casper::AttackProxy.new(options)
+  trap("INT")  { server.shutdown }
+  trap("USR1") { server.toggle_xss_disable }
+end
+
 server.start
